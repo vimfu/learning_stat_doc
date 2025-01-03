@@ -1,4 +1,6 @@
-# 实时学习分析统计系统 (Real-Time Learning State Service)
+# 实时学习分析系统
+
+Real-Time Learning State Service
 
 ---
 
