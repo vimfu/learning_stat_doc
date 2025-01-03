@@ -1,0 +1,65 @@
+flowchart TB
+    subgraph O["**Orgnization Service**"]
+    Org:::Orange@{ shape: docs, label: "Orgnization Data"}
+    end
+    subgraph Tu["**Tutorial Service**"]
+    Tut:::Orange@{ shape: docs, label: "fa:fa-table Tutorial Data"}
+    end
+    subgraph FE["**Front-end** (App / Browser / Box)"]
+    Fe:::Orange@{ shape: docs, label: "Student Actions"}
+    end
+    subgraph EXAM["**Exam Service**"]
+    Exam:::Orange@{ shape: docs, label: "Scores Data"}
+    end
+
+    subgraph "**Real-Time State Service**"
+    subgraph Extractor
+    Fe --> A
+    Exam --> A
+    A["fa:fa-stream Student Learning Action"] --> B1[/"fa:fa-stream Extractor of Action Time"/]
+    A["fa:fa-stream Student Learning Action"] --> B2[/"fa:fa-stream Extractor of Score"/]
+    end
+    subgraph Student Learning State
+    Org --> Stu["fa:fa-table Student Info"]:::Orange
+    B2 --> C1["fa:fa-bar-chart Tutorial State of Student"]:::Water
+    Tut --> T["fa:fa-table Tutotrial_Info"]:::Orange
+    T --> C1
+    B1 --> C2[/"fa:fa-stream Recent Acts of Student"\]:::Water
+    B1 --> C1
+    Stu --> C2
+    Stu --> C1
+    B2 --> C2
+    C1 --> C["Stu_Tutorilal_Summary"]:::Water
+    C2 --> C
+    Org --> Tx
+    C1 --> Dg["fa:fa-bar-chart Student Group Summary"]:::Water
+    C2 --> Dg["fa:fa-bar-chart Student Group Summary"]:::Water
+    Tx["fa:fa-table Student Group info"]:::Orange --> Dg 
+    Dg --> C
+    end
+
+    subgraph OrgStat["Orgnization Learning State"]
+    
+    Org --> T1
+    Org --> T2
+    Org --> T4
+    C --> D1["fa:fa-bar-chart Stu_CourseTutorials_Summary"]:::Water
+    D1 --> D2["fa:fa-bar-chart Class Summary"]:::Water
+    D2 --> D3["fa:fa-bar-chart Course Summary"]:::Water
+    D3 --> D4["fa:fa-bar-chart School Summary"]:::Water
+    T1["fa:fa-table Course_Info (includes tutorials)"]:::Orange --> D1 
+    T2["fa:fa-table Class_Info"]:::Orange --> D2 
+    T1:::Orange --> D3 
+    T4["fa:fa-table School_Info"]:::Orange --> D4 
+    end
+    D1 --> F(["fa:fa-save Summary Info Indexer"]):::Saver
+    D2 --> F
+    D3 --> F
+    D4 --> F
+    C --> F
+    Dg --> F
+    end
+    classDef Orange fill:#f96
+    classDef Water fill:#B3E5FC
+    classDef Saver fill:#4FA
+
